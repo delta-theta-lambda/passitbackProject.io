@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html> <!--Created by Corbin Gentlzer-->
+<head>
+
+        <!-- Header metadata: begin -->
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pass-It-Back</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!-- Project Files: begin -->
+        <link href='stylePages.css' rel='stylesheet'>
+        <!-- Project Files: end -->
+
+        <!-- Adds style options to container and text used on resources page -->
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Oswald);
+            @import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+            .container {
+                padding: 50px; 
+                margin-top: 40px;
+                margin-left: 15px; 
+                margin-right: 15px; 
+                background-color: #707070;
+            }
+
+            .resourcesList {
+                color:azure;
+            }
+
+        </style>
+
+</head>
+
+<body>
+
+    <!--Nav Bar: begin-->
+    <nav>
+
+        <!-- Logo with name: begin -->
+        <div class ="logo">
+            <img src="icons/pageIcons/fixedgigem.PNG" alt="gigem">
+            <h3>Pass-It-Back</h3>
+        </div>
+        <!-- Logo with name: end -->
+
+
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: begin-->
+        <div class ="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: end-->
+
+        <!-- Nav Links: begin -->
+        <ul class = "nav-links">
+            <li><a href = "resources.html">Resources</a></li>
+            <li><a href = "help.html">Help</a></li>
+            <li><a href = "othermaps.html">Other Maps</a></li>
+            <li><a href = "formHistory.html">Form History</a></li>
+            <li><a href = "collectorPage.html">Collector App</a></li>
+            <li><a class="nav-button" href = index.html>Home</a></li>
+        </ul>
+        <!-- Nav Links: end -->
+
+    </nav>
+    <!--Nav Bar: end-->
+
+    <!--Content Container: begin -->
+    <div class="container">
+
+        <h1 style="color:azure; font-family: Oswald;">Resources used in this project</h1>
+
+        <ul class="resourcesList" style="font-family:Work Sans; font-weight: bold"> <!--Creates list for reasources page-->
+            <li>
+                <a href="https://leafletjs.com/" target="_blank" style= "color:#500000">Leaflet</a>
+                <p>Leaflet is an open source Javascript library used to impliment map containers on a webpage.</p>
+
+            </li>
+
+            <li>
+                <a href="https://transport.tamu.edu/Parking/realtime.aspx" target="_blank" style= "color:#500000">Garage Availability</a>
+                <p>Texas A&M Transportation Services live count of visitor parking garage availability for the different garages on campus.</p>
+
+            </li>
+
+            <li>
+                <a href="https://cloud.maptiler.com/" target="_blank" style= "color:#500000">Map Tiler Cloud</a>
+                <p>Used to create the GeoJSON of building outlines used on our main map.</p>
+
+            </li>
+
+            <li>
+                <a href="https://docs.stadiamaps.com/map-styles/alidade-smooth/" target="_blank" style= "color:#500000">Alidade Smooth Basemap</a>
+                <p>Alidade Smooth by Stadia Maps is the basemap we used in our map display.</p>
+
+            </li>
+
+            <li>
+                <a href="https://fonts.google.com/specimen/Oswald" target="_blank" style= "color:#500000">Google Fonts Oswald</a>
+                <p>The Oswald Font by Google Fonts was used for titles on our webpages. Oswald is one of the offical fonts of Texas A&M.</p>
+
+            </li>
+
+            <li>
+                <a href="https://marcomm.tamu.edu/our-brand/visual-style/web-branding/" target="_blank" style= "color:#500000">Texas A&M Branding Materials</a>
+                <p>We used official Aggie branding materials such as fonts, colors, and other design items.</p>
+
+            </li>
+
+            <li>
+                <a href="https://pro.arcgis.com/en/pro-app/latest/get-started/download-arcgis-pro.htm" target="_blank" style= "color:#500000">ArcGIS Pro</a>
+                <p>ArcGIS Pro was used to modify GeoJSON files and add attributes.</p>
+
+            </li>
+
+            <li>
+                <a href="https://workspace.google.com/" target="_blank" style= "color:#500000">Google Workspace</a>
+                <p>Used Google Forms and Google Sheets to gather and store user submitted data for use on webmap.</p>
+
+            </li>
+
+        </ul>
+
+    </div>
+    <!--Content Container: end -->
+
+
+</body>
+
+<script src ="js/navigation.js"></script> <!--Hamburger menu-->
+</html>

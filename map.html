@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--Collaboratively put together by: 
+    
+    Grant Foster: Pop-ups, basemap, Google Forms integration, all back-end components, leaflet.js interactive features, leaflet.js legend, stadiamaps API key, Google Workspace API, array parsing, etc.
+
+    Corbin Gentzler: GeoJSON polygon and attribute creation, leaflet.js map proportion design assistance
+
+    Connor: GeoJSON point and attribute creation, form criteria creation. 
+
+    Jason Salazar: WebScraping Python Code (archived) -> Assistance on the AppsScript Integration / research w/ Grant 
+    
+    Brendan Khamvong: Help Page Questions 
+    -->
+
+    <!-- REMINDER TO DO TURF.JS SOLUTION TO ENSURE USERS CAN BE LIMITED TO BUFFER ZONE + INTERSECT-->
+        <!-- Header metadata: begin -->
+        <meta charset="UTF-8">
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Map</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!--Turf.js Import: Begin-->
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+        <!--Turf.js Import: end-->
+
+        <!-- Project Files: begin -->
+        <link href='styleMap.css' rel='stylesheet'>
+        <script src = "js/coffeePoints.js"></script>
+        <script src = "js/diningPointsFrame.js"></script>
+        <script src = "js/campusBuildings_.js"></script>
+        <script src = "js/garagesScraped.js"></script>
+        <script src = "js/collectorData.js"></script>
+
+
+        <!-- Project Files: end -->
+
+</head>
+
+<body>
+    <!--Content Container: begin -->
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <div class = "container-map"></div>
+            <div id ="map"></div>
+            <script>
+
+                /*G. Foster: API Call for Real-Time Data */ 
+
+                const gWorkspaceAPIKey = 'AIzaSyDFC97Kpc8QaJvQZBnVa4KKIFqGnSlMAdM';
+                const spreadsheetId = '1Z9SkbYvO60lKZoShTOfAtrGmAL5bPQtfDV5zYcDz4EE';
+                const sheetName = 'ArrayTable'; 
+
+                /* G. Foster: 
+                PIB needs fetch throughout the entirety of the map window's utility to ensure that real time updates can be made.
+                Closing prior would result in issues w.r.t. accessing the attribute data.
+                */
+
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${gWorkspaceAPIKey}`) /* retrieve ArrayTable sheet that contains real-time averages */
+                    .then(call => call.json())
+                    .then(data => { /* data is the array of values to then be added to null values in json*/
+
+                    // G.Foster to Grader: sorry this should probably be a nested loop or a function but I didn't get to it 
+
+                    /* Code for tmrw: make looping function to fill all null values with RT data.  */
+
+                    for (i = 0; i < diningPoints.features.length; i++) {
+                        diningPoints.features[i].properties.Rating = data.values[i][1]; // G. Foster: Shift the row, maintain the same target cell
+                    }
+                        /*G.Foster: pick up what is left off in the array (len of diningPoints.features array) and start counting coffee
+                         Note to future self: code this loop better or split the sheet. 
+                         */
+                    for (i = 0; i < coffeePoints.features.length; i++) {
+                        coffeePoints.features[i].properties.Rating = data.values[diningPoints.features.length + i][1];
+                    }
+                // G. Foster: WEBSCRAPING PORTION BEGIN 
+                        // G. Foster to reader: Terrible code, but essentially taking the length of array and add previous parsed values to itself and continue. 
+                        //              dk what happens if loop accidentally goes over unless it goes back to index 0 
+
+                    for (i = 0; i < garagesScraped.features.length; i++) { // To grader: all webscraping is done through sheets/ AppScript, put into a huge array, then retrieved with the above fetch 
+                        garagesScraped.features[i].properties.TotalCount = data.values[(diningPoints.features.length + coffeePoints.features.length) + i][1]; // G. Foster: Shift the column, maintain the same target cell
+                    }
+            // G. Foster: WEBSCRAPING PORTION END 
+
+            /* General Use Functions for Symbology: Begin */
+                // General Color Ramp Function 
+                function getColor(r) {                
+                    return  r >= 4 ? 'red' :
+                        r >= 3  ? 'orange' :
+                        r >= 2  ? 'yellow' :
+                        r >= 1 ? 'green':
+                                    'blue';
+                }
+            /* General Use Functions for Symbology: End */        
+
+        
+            // Map Call Elements 
+                var map = L.map('map').fitWorld();
+                // Tiles for map Begin ---. 
+                var Stadia_AlidadeSmooth = L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=6c6a850c-8b5f-4f17-8051-14e5cc0e84af', {
+                    minZoom: 15,
+                    maxZoom: 17,
+                    attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                    ext: 'png'
+                });
+                Stadia_AlidadeSmooth.addTo(map); 
+                // Tiles End ---
+
+                // G.Foster: USER LOCATOR adapted from leaflet.js tutorial BEGIN----
+                function onLocationFound(e) {
+                    var radius = e.accuracy / 2; // G. Foster: Accuracy method tells user how far within one is from X point                    
+                    var userLocation = L.marker(e.latlng).addTo(map);
+                    var userRadius = L.circle(e.latlng, radius).addTo(map);
+                // user turf.js to do it?  
+                }
+                map.on('locationfound', onLocationFound); // On locationfound is WHAT?
+                map.locate({setView: true, maxZoom: 16});
+                // G. Foster: USER LOCATOR adapted from leaflet.js tutorial END----
+            // Map Call Elements End
+
+            /* G. Foster: Everything Buildings - adapted from leaflet chloropleth tutorial and Lab 06 of GEOG 478 - END */ 
+                function style(feature) {
+                        return {
+                            fillColor: "#585039",
+                            weight: 2,
+                            opacity: 1,
+                            color: 'black',
+                            dashArray: '1',
+                            fillOpacity: 0.5
+                        };
+                    }
+                    L.geoJson(garagesScraped, {style: style}).addTo(map);
+
+                    function highlightFeature(e) {
+                        var layer = e.target;
+                        layer.setStyle({
+                            weight: 5,
+                            color: 'yellow',
+                            dashArray: 'black',
+                            fillOpacity: 0.7
+                        });
+                        // No -- layer.bringToFront();
+                        info.update(layer.feature.properties);
+                    }
+                // Mouse Out
+                var garagesJson;
+                garagesJson = L.geoJson(garagesScraped, {
+                    style: style,
+                    onEachFeature: onEachFeature
+                }).addTo(map);
+        
+                function resetHighlight(e) {
+                    garagesJson.resetStyle(e.target);
+                    info.update();
+                }
+                // Reset + Zoom Features
+                function zoomToFeature(e) {
+                    map.fitBounds(e.target.getBounds());
+                    }
+                function onEachFeature(feature, layer) {
+                    layer.on({
+                        mouseover: highlightFeature,
+                        mouseout: resetHighlight,
+                        click: zoomToFeature
+                    });
+                }
+
+                var info = L.control();
+        
+                info.onAdd = function (map) {   
+                    this._div = L.DomUtil.create('div', 'info'); 
+                    this.update();
+                    return this._div;
+                };
+
+                info.update = function (props) {
+                    this._div.innerHTML = '<h4>Garage Info</h4>' +  (props ?
+                    '<b>' + props.BldgName + '</b><br />' + props.TotalCount + ' Vacant Spots (Scraped every minute)'
+                    : 'Hover To See Information');
+                };
+        // insert chart capability  ? 
+                info.addTo(map);
+
+                /* G.Foster:  Everything Buildings: adapted from leaflet chloropleth tutorial and Lab 06 of GEOG 478 - END */ 
+        
+
+ 
+
+            // G.Foster: Could put these into a function  . . . outputPoints() ? 
+     
+                // G. Foster: Dining Points (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - BEGIN 
+
+                for (i = 0; i < diningPoints.features.length; i++) { //G. Foster: Modified to iterate through diningPoints.features[i] array with popup links in mind. 
+                    var diningMap = L.geoJSON (diningPoints.features[i], { 
+                        pointToLayer: function(feature, latlng) {
+                            return L.circleMarker(latlng, {radius: 7.5, fillOpacity: 1, color: 'black', fillColor: getColor(feature.properties.Rating)
+                            })}        
+                    }).addTo(map).bindPopup("<iframe src=" + diningPoints.features[i].properties.FormLink + " height = 400 width = 575 seamless>");
+                
+                }
+
+                
+            // G. Foster: Dining Points (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - END
+
+            // G.Foster: Coffee / Cafe  Points (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - BEGIN
+                               
+                for (i = 0; i < coffeePoints.features.length; i++) { //G. Foster: Modified to iterate through diningPoints.features[i] array with popup links in mind. 
+                    var coffeeMap = L.geoJSON (coffeePoints.features[i], { 
+                        pointToLayer: function(feature, latlng) {
+                            return L.circleMarker(latlng, {radius: 7.5, fillOpacity: 1, color: 'black', fillColor: getColor(feature.properties.Rating)
+                            })}        
+                    }).addTo(map).bindPopup("<iframe src=" + coffeePoints.features[i].properties.FormLink + " height = 300 width = 560 seamless>");
+                
+                }
+    
+            // G.Foster: Coffee / Cafe  Points (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - BEGIN 
+
+            // Style of the features 
+            // G. Foster: Legend Center (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - BEGIN 
+                var legend = L.control({position: 'bottomright'});
+                legend.onAdd = function(map){
+                    var div = L.DomUtil.create('div', 'info legend');
+                        labels = ['<strong>Crowding: (where 1 = none) </strong><br>'],
+                        threshold = [0, 1, 2, 3, 4, 5];
+                        div.innerHTML = labels.join('<br>');
+                // loop through our intervals and generate a label with a colored square for each interval
+                    for (var i = 0; i < threshold.length - 1; i++) {
+                        if (i == 4) {
+                            div.innterHTML+= '<i style="background:' + getColor(threshold[i] + 1) + '"></i> ';
+
+                        } /* G. Foster: Conditional is set up to ensure that the legend does not overfit the threshold array that has a total of SIX index values 
+                            Without this line the legend does not function properly to the getColor() values */ 
+                        else {
+                        div.innerHTML +=
+                            '<i style="background:' + getColor(threshold[i] + 1) + '"></i> ' +
+                            threshold[i+1] + (threshold[i + 1] ? '&ndash;' + threshold[i + 2] + '<br>' : '+');
+                            continue;
+                        }
+                    }
+                    div.innerHTML += '<br><strong>Collector App Items</strong><br>';
+                    div.innerHTML += '<img src="icons/mapIcons/hazard.png" width="18" height="18">' + 'Accessibility Hazard / Road Closure' + '<br>';
+                    div.innerHTML += '<img src="icons/mapIcons/construction.png" width="18" height="18">' + 'Sidewalk Closed For Construction' + '<br>';
+                    div.innerHTML += '<img src="icons/mapIcons/closed.png" width="18" height="18">'  + 'Location Closed / Building Locked' + '<br>';
+                    div.innerHTML += '<img src="icons/mapIcons/question.png" width="18" height="18">'  + 'Other Phenomena' + '<br>';
+                    div.innerHTML += '<img src="icons/mapIcons/you.png" width="12" height="18">'  + ' User Location' + '<br>';
+
+
+
+
+                return div;
+                };
+            legend.addTo(map);
+            // G. Foster: Legend Center (Adapted from Leaflet.js tutorials and WebGIS Lab 06) - END 
+
+
+            const gWorkspaceAPIKey2 = 'AIzaSyDFC97Kpc8QaJvQZBnVa4KKIFqGnSlMAdM';
+            const spreadsheetId2 = '15WMV4s05qmndeagRj9-V8nc304sUQSid9Z5GWhV5RcI';
+            const sheetName2 = 'Sheet1'; 
+
+/* G. Foster: 
+PIB needs fetch throughout the entirety of the map window's utility to ensure that real time updates can be made.
+Closing prior would result in issues w.r.t. accessing the attribute data.
+*/
+                /* G. FOSTER: COLLECTOR INTEGRATION BEGINS HERE */ 
+                fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId2}/values/${sheetName2}?key=${gWorkspaceAPIKey2}`)/* retrieve ArrayTable sheet that contains real-time averages */
+                    .then(call => call.json())
+                    .then(data => {
+                        // G. Foster: Sorry grader, this is spaghetti code / repeated now. . . . 
+                        
+                        var hazardIcon = new L.Icon ({
+                            iconUrl: 'icons/mapIcons/hazard.png', // G. Foster: Adapted from Leaflet.JS tutorial (I think? referencing old code here)
+                            iconSize: [30, 30]
+                        });
+
+                        var constructionIcon = new L.Icon ({
+                            iconUrl: 'icons/mapIcons/construction.png', // G. Foster: Adapted from Leaflet.JS tutorial (I think? referencing old code here)
+                            iconSize: [30, 30]
+                        });
+                        
+                        var closedIcon = new L.Icon ({
+                            iconUrl: 'icons/mapIcons/closed.png', // G. Foster: Adapted from Leaflet.JS tutorial (I think? referencing old code here)
+                            iconSize: [30, 30]
+                        });
+
+                        var unkIcon = new L.Icon ({
+                            iconUrl: 'icons/mapIcons/question.png', // G. Foster: Adapted from Leaflet.JS tutorial (I think? referencing old code here)
+                            iconSize: [30, 30]
+                        });
+
+
+                        for (i = 0; i < data.values.length; i++) { //G. Foster: Modified to iterate through diningPoints.features[i] array with popup links in mind. 
+                            if (data.values[i][0] == "Accessibility Hazard / Road Closure") { // G. Foster: Self-Note Look into trying to apply this to earlier to reduce redunandacy ?
+                                L.marker([data.values[i][1],data.values[i][2]], {icon: hazardIcon}).addTo(map).bindPopup(data.values[i][4] +" reported a hazard on:<br><br>" + data.values[i][3]);
+                            }
+
+                            else if (data.values[i][0] == "Sidewalk Closed For Construction") { // G. Foster: Self-Note Look into trying to apply this to earlier to reduce redunandacy ?
+                                L.marker([data.values[i][1],data.values[i][2]], {icon: constructionIcon}).addTo(map).bindPopup(data.values[i][4] +" reported construction on:<br><br>" + data.values[i][3]);
+                            }
+
+                            else if (data.values[i][0] == "Location Closed / Building Locked") { // G. Foster: Self-Note Look into trying to apply this to earlier to reduce redunandacy ?
+                                L.marker([data.values[i][1],data.values[i][2]], {icon: closedIcon}).addTo(map).bindPopup(data.values[i][4] +" reported a closed building on:<br><br>" + data.values[i][3]);
+                            }
+
+                            else {
+                                L.marker([data.values[i][1],data.values[i][2]], {icon: unkIcon}).addTo(map).bindPopup(data.values[i][4] +" reported unknown phenomena on:<br><br>" + data.values[i][3]); 
+                            }
+                        }
+                        
+                }); // G. Foster: nested api call (2nd order)
+                /* G. FOSTER: COLLECTOR INTEGRATION ENDS HERE */ 
+
+
+            } // G. Foster: first api call nesting... (1st order)
+            
+        ) // G. Foster: END OF GOOGLE API CALL... DO NOT WRITE OUTSIDE
+
+
+/* G. Foster: 
+PIB needs fetch throughout the entirety of the map window's utility to ensure that real time updates can be made.
+Closing prior would result in issues w.r.t. accessing the attribute data.
+*/
+
+
+
+
+            </script>
+    </main>
+
+    <!--Content Container: end -->
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>  <!-- 
+        
+        This index page + map was put together by Grant Foster. The purpose of this page is to serve as the hub for the site. 
+        
+        It is divided up into 3 categories. 
+
+        Feed: Where user comments are displayed when interacting with pop-up features.
+        Leaderboard: Where user input is ranked in descending order from greatest to least of each locations average. 
+        Map: Where the user is geolocated and interaction with the other two sidebars must be facilitated.  
+
+        The navigation bar is an adaptation from a YouTube tutorial by (*insert credit here*). For more information on the navbar, please reference README.txt. 
+        
+        -->
+
+        <!-- Header metadata: begin -->
+        <meta charset="UTF-8">
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Pass-It-Back: Real Time Mapping</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!--Turf.js Import: Begin-->
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+        <!--Turf.js Import: end-->
+
+        <!-- Project Files: begin -->
+        <link href='styleCollectorPage.css' rel='stylesheet'>
+        <script src = "js/coffeePoints.js"></script>
+        <script src = "js/diningPoints.js"></script>
+        <script src = "js/campusBuildings_.js"></script>
+        <!-- Project Files: end -->
+
+</head>
+
+<body>
+    
+    <!--Nav Bar: begin-->
+    <nav>
+
+        <!-- Logo with name: begin -->
+        <div class ="logo">
+            <img src="icons/pageIcons/fixedgigem.PNG" alt="gigem">
+            <h3>Pass-It-Back</h3>
+        </div>
+        <!-- Logo with name: end -->
+
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: begin-->
+        <div class ="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Menu Toggle on Mobile Devices: end-->
+
+        <!-- Nav Links: begin -->
+        <ul class = "nav-links">
+            <li><a href = "resources.html">Resources</a></li>
+            <li><a href = "help.html">Help</a></li>
+            <li><a href = "othermaps.html">Other Maps</a></li>
+            <li><a href = "formHistory.html">Form History</a></li>
+            <li><a href = "collectorPage.html">Collector App</a></li>
+            <li><a class="nav-button" href = index.html>Home</a></li>
+        </ul>
+        <!-- Nav Links: end -->
+    </nav>
+    <!--Nav Bar: end-->
+
+    <!---------------------------------------------------------------------------------------------------------------->
+
+    <!--Content Container: begin -->
+    <main>
+        
+        <!--Feed Aside Block Begins-->
+        <!--Feed Aside Block Ends-->    
+        <!--Map Section Block Begins-->
+        <section>
+            <div class="home-subheader">
+                <h2 class="title-heading">Map Collector</h2>
+            </div>
+            <div class="helpbox">
+                    <iframe class ="responsive-iframe" src="mapCollector.html" width="100%" height="675" style="max-width: 100%; max-height: 90vh"></iframe>
+                    <div class = "container-map"></div>
+                    <div id ="map"></div>
+            </div>
+        </section>
+        <!--Map Section Block Ends-->
+
+        <!--Leaderboard Article Block Begins-->
+
+        <!--Leaderboard Article Block Ends-->
+    </main>
+
+    <!-- P.I.B. main container: end -->
+</body>
+<script src ="js/navigation.js"></script>
+</html>

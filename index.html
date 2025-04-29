@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>  <!-- 
+        
+        This index page + map was put together by Grant Foster. The purpose of this page is to serve as the hub for the site. 
+        
+        It is divided up into 3 categories. 
+
+        Feed: Where user comments are displayed when interacting with pop-up features.
+        Leaderboard: Where user input is ranked in descending order from greatest to least of each locations average. 
+        Map: Where the user is geolocated and interaction with the other two sidebars must be facilitated.  
+
+        The navigation bar is an adaptation from a YouTube tutorial by (*insert credit here*). For more information on the navbar, please reference README.txt. 
+        
+        -->
+
+        <!-- Header metadata: begin -->
+        <meta charset="UTF-8">
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>Pass-It-Back: Real Time Mapping</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!--Turf.js Import: Begin-->
+        <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+        <!--Turf.js Import: end-->
+
+        <!-- Project Files: begin -->
+        <link href='styleIndex.css' rel='stylesheet'>
+        <script src = "js/coffeePoints.js"></script>
+        <script src = "js/diningPoints.js"></script>
+        <script src = "js/campusBuildings_.js"></script>
+        <!-- Project Files: end -->
+
+</head>
+
+<body>
+    
+    <!--Nav Bar: begin-->
+    <nav>
+
+        <!-- Logo with name: begin -->
+        <div class ="logo">
+            <img src="icons/pageIcons/fixedgigem.PNG" alt="gigem">
+            <h3>Pass-It-Back</h3>
+        </div>
+        <!-- Logo with name: end -->
+
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: begin-->
+        <div class ="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Menu Toggle on Mobile Devices: end-->
+
+        <!-- Nav Links: begin -->
+        <ul class = "nav-links">
+            <li><a href = "resources.html">Resources</a></li>
+            <li><a href = "help.html">Help</a></li>
+            <li><a href = "othermaps.html">Other Maps</a></li>
+            <li><a href = "formHistory.html">Form History</a></li>
+            <li><a href = "collectorPage.html">Collector App</a></li>
+            <li><a class="nav-button" href = index.html>Home</a></li>
+        </ul>
+        <!-- Nav Links: end -->
+    </nav>
+    <!--Nav Bar: end-->
+
+    <!---------------------------------------------------------------------------------------------------------------->
+
+    <!--Content Container: begin -->
+    <main>
+        
+        <!--Feed Aside Block Begins-->
+        <aside>
+            <div class="home-subheader">
+                <h2 class="title-heading">Feed</h2>
+            </div>
+            <h2>               
+                <div class = "revDog">
+                <img src="icons/pageIcons/revWelcome.gif" alt="gigem" style="width: 25%">
+                </div>
+            </h2>
+            <div class = "feed-block">
+                <h2 class = "location"></h2>
+                <iframe 
+                class="responsive-iframe-vertical" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5M8i5UEMMlPnp6lzZZZoV7hdM1kfj8CWsRERAXudIvMmiRYwP6RStTBnm3OvxR3Dg_Sg5cR62lD95/pubhtml?gid=2052342350&amp;single=true&amp;widget=FALSE&amp;headers=false&chrome=FALSE"
+                height ="600" style ="max-width: 90%; max-height: 70vh">
+                </iframe>
+                <!--
+                https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5M8i5UEMMlPnp6lzZZZoV7hdM1kfj8CWsRERAXudIvMmiRYwP6RStTBnm3OvxR3Dg_Sg5cR62lD95/pubhtml?gid=2052342350
+                
+                Real Datasheet ^^
+                -->
+                
+                <!--
+                https://docs.google.com/spreadsheets/d/e/2PACX-1vT_c-n1ds7yUuiQrmNRLFA4IwsfIWRGOMKQNdO7Cul2G6LF3TUS3kgJPY3Tb3KD-vEcU9dXTBcSQz6P/pubhtml?gid=982484890&amp;single=true&amp;widget=FALSE&amp;headers=false&chrome=FALSE
+                 
+                Fake Datasheet ^^ 
+                -->
+            </div>
+        </aside>
+        <!--Feed Aside Block Ends-->
+    
+        <!--Map Section Block Begins-->
+        <section>
+            <div class="home-subheader">
+                <h2 class="title-heading">Map</h2>
+            </div>
+
+            <div class="helpbox">
+                    <iframe class ="responsive-iframe" src="map.html" width="100%" height="675" style="max-width: 100%; max-height: 90vh; box-sizing: border-box;"></iframe>
+                    <div class = "container-map"></div>
+                    <div id ="map"></div>
+            </div>
+        </section>
+        <!--Map Section Block Ends-->
+
+        <!--Leaderboard Article Block Begins-->
+        <article>
+            <div class="home-subheader">
+                <h2 class="title-heading">Leaderboard</h2>
+            </div>
+                <div class = "revDog">
+                    <h2><img src="icons/pageIcons/revpainting.gif" alt="gigem" style="width: 20%"></h2>
+                </div>     
+               <iframe class="responsive-iframe-vertical" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5M8i5UEMMlPnp6lzZZZoV7hdM1kfj8CWsRERAXudIvMmiRYwP6RStTBnm3OvxR3Dg_Sg5cR62lD95/pubhtml?gid=1055728661&amp;single=true&amp;widget=FALSE&amp;headers=false&amp;chrome=FALSE"
+                height ="600" style ="max-width: 100%; max-height: 57vh"></iframe>
+
+                <!--https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5M8i5UEMMlPnp6lzZZZoV7hdM1kfj8CWsRERAXudIvMmiRYwP6RStTBnm3OvxR3Dg_Sg5cR62lD95/pubhtml?gid=1055728661 
+                    Real Datasheet ^^
+                -->
+
+                <!--
+                    https://docs.google.com/spreadsheets/d/e/2PACX-1vT_c-n1ds7yUuiQrmNRLFA4IwsfIWRGOMKQNdO7Cul2G6LF3TUS3kgJPY3Tb3KD-vEcU9dXTBcSQz6P/pubhtml?gid=2114132331&amp;single=true&amp;widget=FALSE&amp;headers=false&amp;chrome=FALSE
+                    Fake Datasheet ^^
+                -->
+        </article>
+        <!--Leaderboard Article Block Ends-->
+    
+    </main>
+    <footer>
+        <h2>_</h2>
+    </footer>
+    <!-- P.I.B. main container: end -->
+</body>
+<script src ="js/navigation.js"></script>
+</html>

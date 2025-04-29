@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html> <!--Templated by Corbin Gentlzer; Adapted by Grant Foster-->
+<head>
+
+        <!-- Header metadata: begin -->
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pass-It-Back</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!-- Project Files: begin -->
+        <link href='stylePages.css' rel='stylesheet'>
+        <!-- Project Files: end -->
+
+        <!-- Adds style options to container and text used on resources page -->
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Oswald);
+            @import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+            .container {
+                padding: 50px; 
+                margin-top: 40px;
+                margin-left: 15px; 
+                margin-right: 15px; 
+                background-color: #707070;
+            }
+
+            .resourcesList {
+                color:azure;
+            }
+
+        </style>
+
+</head>
+
+<body>
+
+    <!--Nav Bar: begin-->
+    <nav>
+
+        <!-- Logo with name: begin -->
+        <div class ="logo">
+            <img src="icons/pageIcons/fixedgigem.PNG" alt="gigem">
+            <h3>Pass-It-Back</h3>
+        </div>
+        <!-- Logo with name: end -->
+
+
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: begin-->
+        <div class ="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: end-->
+
+        <!-- Nav Links: begin -->
+        <ul class = "nav-links">
+            <li><a href = "resources.html">Resources</a></li>
+            <li><a href = "help.html">Help</a></li>
+            <li><a href = "othermaps.html">Other Maps</a></li>
+            <li><a href = "formHistory.html">Form History</a></li>
+            <li><a href = "collectorPage.html">Collector App</a></li>
+            <li><a class="nav-button" href = index.html>Home</a></li>
+        </ul>
+        <!-- Nav Links: end -->
+
+    </nav>
+    <!--Nav Bar: end-->
+
+    <!--Content Container: begin -->
+    <div class="container">
+        <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5M8i5UEMMlPnp6lzZZZoV7hdM1kfj8CWsRERAXudIvMmiRYwP6RStTBnm3OvxR3Dg_Sg5cR62lD95/pubhtml?gid=928665808&amp;single=true&amp;widget=FALSE&amp;headers=false&amp;chrome=FALSE"
+        height ="800" width="1300"></iframe>
+    </div>
+    <!--Content Container: end -->
+
+
+</body>
+
+<script src ="js/navigation.js"></script> <!--Hamburger menu-->
+</html>

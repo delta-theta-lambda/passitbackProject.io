@@ -1,0 +1,301 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald);
+@import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+
+/* Main stylesheet done by Grant Foster in collaboration with Corbin (?) on in regards to Help, Resources, and #Map.*/
+
+* {
+    box-sizing: border-box;
+    /* margin: 0; ask about this*/
+    padding: 0;
+}
+/* General body style */
+body {
+    background-color: #202020;
+}
+/* body style */
+
+.revDog{
+    display:flex; 
+    justify-content: center;
+}
+
+
+section {
+    width: 100%;
+    color: white;
+    height: 100vh;
+    border: 5px solid  #202020;
+
+}
+
+footer{
+    background-color: #3E3E3E;
+    text-align: center;
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    
+    aside {
+        width: 100%;
+        float: left;
+        color: white;
+    }
+    
+    section {
+        width: 100%;
+        float: middle;
+        color: white;
+    }
+    
+    article {
+        width: 100%;
+        float: left;
+        color: white;
+    }
+    
+}
+
+.home-subheader {
+    font-family: "Oswald";
+    text-align: center;
+    color: #FFFFFF
+}
+
+.helpbox{
+    margin-right:auto;
+    margin-left:auto;
+    width: 78vw;
+    height: 85vh;
+    padding: 10px;
+}
+
+.responsive-iframe {
+    text-align:center;
+    border: none;
+}
+
+@media screen and (max-width: 600px) {
+
+    .helpbox{
+        width: 100%;
+        height: 85%;
+        padding: 10px;
+    }
+
+    .responsive-iframe {
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .responsive-iframe-vertical{
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+}
+
+
+.title-heading {
+    border:5px solid black;
+    margin-left: 10%;
+    margin-right: 10%;
+    background-color:#3C0000;
+}
+/* body style */
+nav {
+    position: sticky;
+    top: 0;
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #500000;
+    z-index: 9999;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    width: 60px;
+}
+
+.logo h3 {
+    margin-left: 10px;
+    color: white;
+    text-decoration: none;
+    font-size: 35px;
+    font-family: Oswald;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-links a {
+    display: block;
+    padding: 30px 16px;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+    font-family: Oswald;
+    text-transform: uppercase;
+    transition: all ease-in-out 100ms;
+}
+
+.nav-links a:hover {
+    background-color: #3C0000 ;
+}
+
+.nav-links .nav-button {
+    padding: 10px 18px;
+    margin-left: 16px;
+    border: #D6D3C4 solid 4px;
+    border-radius: 50px;
+}
+
+/* Mobile responsive design... */
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    width: 34px;
+}
+
+.hamburger .bar {
+    flex-basis: 100%;
+    height: 4px; 
+    background-color: white;
+    margin: 3px;
+}
+
+
+@media (max-width: 768px) {
+
+    nav {
+        flex-wrap: wrap;
+    }
+
+    .hamburger {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .logo {
+        height: 80px;
+    }
+
+    .nav-links {
+        display: none;
+        flex-basis: 100%;
+        flex-wrap: wrap;
+    }
+
+    .nav-links li {
+        flex-basis: 100%;
+    }
+
+    .nav-links a {
+        text-align: center;
+        font-size: 28px;
+    }
+
+    .nav-links a:hover {
+        background-color: #3C0000;
+    }
+
+    .nav-links .nav-button {
+        padding: 30px 16px;
+        margin-left: 0;
+        border: none;
+        border-radius: 0;
+        margin-bottom: 20px;
+    }
+
+    .nav-links .nav-button:hover {
+        background-color: #3C0000;
+    }
+}
+/* Mobile responsive design... */
+
+
+.leaflet-container{
+    height: 85vh; 
+}
+
+#map {
+    width: 88vw;
+    padding: 0;
+    margin: auto;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+/* pop-up components */
+.leaflet-popup-content-wrapper{
+    background-color: black ; /*Important*/
+    width: 620px;    
+}
+
+.leaflet-popup-tip {
+    background-color: black; /*Important*/
+    width: 17px;
+    height: 17px;
+    padding: 1px;
+    margin: -10px auto 0;
+    pointer-events: auto;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: none;
+    text-align: center;
+    width: 24px;
+    height: 24px;
+    font: 16px / 24px Tahoma, Verdana, sans-serif;
+    color: white; /*Important for change*/
+    text-decoration: none;
+    background: transparent;
+}
+

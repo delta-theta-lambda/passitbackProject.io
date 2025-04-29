@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+        <!-- Header metadata: begin -->
+        <meta charset ="character_set">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Pass-It-Back</title>
+        <!-- Header metadata: end -->
+
+        <!-- Leaflet Import: begin -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <!-- Leaflet Import: end -->
+
+        <!-- Project Files: begin -->
+        <link href='stylePages.css' rel='stylesheet'>
+        <!-- Project Files: end -->
+
+        <!-- Adds style options to container and text used on resources page -->
+        <style>
+            @import url(https://fonts.googleapis.com/css?family=Oswald);
+            @import url(https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap);
+            .container {
+                padding: 50px; 
+                margin-top: 40px;
+                margin-left: 15px; 
+                margin-right: 15px; 
+                background-color: #707070;
+            }
+
+            .resourcesList {
+                color:azure;
+            }
+
+        </style>
+
+</head>
+
+<body>
+
+    <!--Nav Bar: begin-->
+    <nav>
+
+        <!-- Logo with name: begin -->
+        <div class ="logo">
+            <img src="icons/pageIcons/fixedgigem.PNG" alt="gigem">
+            <h3>Pass-It-Back</h3>
+        </div>
+        <!-- Logo with name: end -->
+
+
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: begin-->
+        <div class ="hamburger">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <!-- Menu Toggle on Mobile Devices NOT VISIBLE ON DESKTOP: end-->
+
+        <!-- Nav Links: begin -->
+        <ul class = "nav-links">
+            <li><a href = "resources.html">Resources</a></li>
+            <li><a href = "help.html">Help</a></li>
+            <li><a href = "othermaps.html">Other Maps</a></li>
+            <li><a href = "formHistory.html">Form History</a></li>
+            <li><a href = "collectorPage.html">Collector App</a></li>
+            <li><a class="nav-button" href = index.html>Home</a></li>
+        </ul>
+        <!-- Nav Links: end -->
+
+    </nav>
+    <!--Nav Bar: end-->
+
+    <!--Content Container: begin -->
+    <div class="container">
+
+        <h1 style="color:azure; font-family: Oswald;">FAQ</h1>
+
+        <ul class="resourcesList" style="font-family:Work Sans; font-weight: bold"> <!--Creates list for reasources page-->
+            <li>
+                <p style= "color:#500000">What is Pass-It-Back?</p>
+                <p>Pass-It-Back is a real-time mapping service that is a work in progress for students who wish to provide their peers feedback for crowding spaces and approximated wait-times on campus.</p>
+
+            </li>
+
+            <li>
+                <p style= "color:#500000">What motivated us to make Pass-It-Back?</p>
+                <p>With the large amount of students Texas A&M has, resturants and cafes are often extremely crowded. We wanted to give students the ability to know just how crowded a place is before they arrive.</p>
+
+            </li>
+
+            <li>
+                <p style= "color:#500000">Who's our target audience?</p>
+                <p>Anyone! We expect students are likely to use it the most but anyone on campus could benefit from Pass-It-Back.</p>
+
+            </li>
+
+            <li>
+                <p style= "color:#500000">Can Pass-It-Back be "de-TAMUed" and transferred to any applicable spatial situation?</p>
+                <p>Most likely, but it will need further code reviewing to ensure that it will be compatible regardless of certain parameters specific to Pass-It-Back</p>
+
+            </li>
+
+            <li>
+                <p style= "color:#500000">Why not just use a Google Form?</p>
+                <p>The collector app is the main draw of this as it records your geolocation. The "crowding" portion is simply a relevant example of how stationary poionts may be mapped. </p>
+
+            </li>
+
+
+        </ul>
+
+    </div>
+    <!--Content Container: end -->
+
+
+</body>
+
+<script src ="js/navigation.js"></script> <!--Hamburger menu-->
+</html>
