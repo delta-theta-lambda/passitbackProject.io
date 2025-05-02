@@ -5,7 +5,8 @@ Here is a directory to this repo by Grant Foster:
 
 Folders Begin -----------------
 
-/js/ -> all JS files used 
+/js/ -> all JS files used. Please note, these contain attributes and data such as latlong BUT values are set to *null* in some files. Those are what change via js fetch API and looped through + replaced in their respect spot with data.values reflected in the code. 
+
 /icons/ -> all icons used 
 
 Folders End -----------------
