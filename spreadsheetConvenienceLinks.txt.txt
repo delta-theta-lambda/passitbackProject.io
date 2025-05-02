@@ -1,0 +1,22 @@
+Hello, here is the spreadsheets referenced throughout the document. 
+
+
+Master Workbook: https://docs.google.com/spreadsheets/d/1Z9SkbYvO60lKZoShTOfAtrGmAL5bPQtfDV5zYcDz4EE/edit?usp=sharing
+
+Here is a supplemental guide to the Master Workbook as well: 
+
+CTH - This is the hub for all information aggregated by the forms. 
+
+Leaderboard - Sheet that is on the right pane of the project
+
+Feed Social - Sheet that is embedded on the left pane of the project. 
+
+Scraped Garages - Uses AppScript (please let me know if that is not accessible to your) to trigger 1 minute refresh of an import HTML command. 
+
+ArrayTable - where all of the data that is put into the points under their null values in the .js files is caught using the JavaScript Fetch API and iterated through into their respective spots. Please note, this is hardcoded and any changes to the .js files will cause the orders to be disrupted. ArrayTable is what is queried in the first fetch() request. 
+
+Everything else relates back to these big hubs or is queried / manipulated to be ordered in a certain way. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+As for the collector, the workbook is much more simple as the form sheet is queried into Sheet1 and then in the second Fetch API request after the user files a the form. 
